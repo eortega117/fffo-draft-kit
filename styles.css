@@ -90,7 +90,7 @@ input { font-family: inherit; }
   color: var(--text);
 }
 
-.header-status { display: flex; align-items: center; gap: 10px; }
+.header-status { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
 .btn {
   font-family: var(--font-display);

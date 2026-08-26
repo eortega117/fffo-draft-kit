@@ -5,7 +5,9 @@ work the board live during their draft — tag Target/Avoid, bump players up or 
 overall or position rank, and mark players Drafted to pull them from the pool. There's no
 database or login — when you're ready to step away, click **Export Board** to download a
 CSV of your current state (order, tags, drafted players and all), then re-upload that same
-file next time to pick up exactly where you left off.
+file next time to pick up exactly where you left off. Finished a draft and want to reuse
+the same board for another one? **Undraft All** clears every drafted flag in one click
+while keeping your custom order and Target/Avoid tags intact.
 
 No build step, no dependencies to install — just static HTML/CSS/JS plus two CDN-loaded
 libraries (PapaParse for CSV, SheetJS for Excel).

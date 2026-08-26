@@ -16,6 +16,7 @@
     boardScreen: document.getElementById('board-screen'),
     headerStatus: document.getElementById('header-status'),
     exportBtn: document.getElementById('export-btn'),
+    undraftAllBtn: document.getElementById('undraft-all-btn'),
     startOverBtn: document.getElementById('start-over-btn'),
     dropzone: document.getElementById('dropzone'),
     fileInput: document.getElementById('file-input'),
@@ -114,6 +115,15 @@
     });
 
     el.exportBtn.addEventListener('click', exportBoard);
+
+    el.undraftAllBtn.addEventListener('click', () => {
+      if (!players.length) return;
+      const draftedCount = players.filter(p => p.drafted).length;
+      if (!draftedCount) return;
+      if (!confirm(`Mark all ${draftedCount} drafted player(s) as available again? Rankings and Target/Avoid tags are kept.`)) return;
+      players.forEach(p => { p.drafted = false; });
+      render();
+    });
   }
 
   function showUploadError(msg) {
@@ -298,7 +308,7 @@
       }
       if (j === -1) return; // already bottom of position
       players.splice(idx, 1);
-      players.splice(j, 0, p); // j-1 because array shifted after removal
+      players.splice(j, 0, p); // j is already correct post-removal: neighbor shifted to j-1, so j puts p right after them
     }
     render();
   }
