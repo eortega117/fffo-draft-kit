@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FFFO — Fantasy Football Draft Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-mark">FFFO</span>
+      <span class="brand-sub">Draft Board</span>
+    </div>
+    <div id="header-status" class="header-status" hidden>
+      <button id="export-btn" class="btn btn--ghost">Export Board</button>
+      <button id="start-over-btn" class="btn btn--ghost">Start Over</button>
+    </div>
+  </header>
+
+  <!-- ============ UPLOAD SCREEN ============ -->
+  <main id="upload-screen" class="upload-screen">
+    <div class="upload-hero">
+      <p class="eyebrow">Before you go on the clock</p>
+      <h1>Load your board.</h1>
+      <p class="hero-copy">Upload your own rankings and run your draft from a live, editable board — tag targets, bump players up or down, and mark them drafted as they come off the board. When you're done, export your board as a spreadsheet so you can pick up right where you left off next time.</p>
+    </div>
+
+    <div class="upload-panel">
+      <div id="dropzone" class="dropzone">
+        <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 3v12m0-12 4 4m-4-4-4 4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p class="dropzone-title">Drop your spreadsheet here</p>
+        <p class="dropzone-sub">or click to browse — .csv, .xlsx, or .xls</p>
+        <input type="file" id="file-input" accept=".csv,.xlsx,.xls" hidden>
+      </div>
+      <div id="upload-error" class="upload-error" hidden></div>
+
+      <div class="template-row">
+        <p>Need the format? <button id="download-template-btn" class="link-btn">Download the template</button></p>
+      </div>
+
+      <details class="template-details">
+        <summary>What columns does it need?</summary>
+        <table class="spec-table">
+          <thead>
+            <tr><th>Column</th><th>Example</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Overall Rank</td><td>1</td><td>Your starting overall order</td></tr>
+            <tr><td>Player</td><td>Ja'Marr Chase</td><td>Full name</td></tr>
+            <tr><td>Team</td><td>CIN</td><td>Team abbreviation</td></tr>
+            <tr><td>Position</td><td>WR or WR1</td><td>QB, RB, WR, TE, K, or TD (defense) — the rank can be attached directly (e.g. "WR1") or left as just the letters</td></tr>
+            <tr><td>Position Rank</td><td>1</td><td>Optional — calculated automatically if left out or already combined into Position</td></tr>
+            <tr><td>Bye Week</td><td>10</td><td>Numeric</td></tr>
+          </tbody>
+        </table>
+      </details>
+    </div>
+
+  </main>
+
+  <!-- ============ BOARD SCREEN ============ -->
+  <main id="board-screen" class="board-screen" hidden>
+
+    <div class="board-controls">
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon">
+          <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3" stroke-linecap="round"/>
+        </svg>
+        <input type="text" id="search-input" placeholder="Search players…" autocomplete="off">
+      </div>
+
+      <div class="pos-filters" id="pos-filters">
+        <button class="pos-pill is-active" data-pos="ALL">ALL</button>
+        <button class="pos-pill" data-pos="QB">QB</button>
+        <button class="pos-pill" data-pos="RB">RB</button>
+        <button class="pos-pill" data-pos="WR">WR</button>
+        <button class="pos-pill" data-pos="TE">TE</button>
+        <button class="pos-pill" data-pos="FLEX">FLEX</button>
+        <button class="pos-pill" data-pos="K">K</button>
+        <button class="pos-pill" data-pos="TD">TD</button>
+      </div>
+
+      <div class="drafted-toggle">
+        <label class="switch">
+          <input type="checkbox" id="show-drafted-toggle">
+          <span class="switch-track"><span class="switch-thumb"></span></span>
+        </label>
+        <span class="switch-label">Show drafted</span>
+      </div>
+    </div>
+
+    <div class="board-legend">
+      <span class="legend-item"><span class="legend-dot legend-dot--target"></span>Target</span>
+      <span class="legend-item"><span class="legend-dot legend-dot--avoid"></span>Avoid</span>
+      <span class="legend-item legend-item--muted">Drafted rows dim &amp; move to the back</span>
+    </div>
+
+    <div class="board-list-head">
+      <span class="col-rank">Rank</span>
+      <span class="col-player">Player</span>
+      <span class="col-pos">Position</span>
+      <span class="col-team">Team</span>
+      <span class="col-bye">Bye</span>
+      <span class="col-actions">Actions</span>
+    </div>
+
+    <ul id="player-list" class="player-list"></ul>
+
+    <p id="empty-state" class="empty-state" hidden>No players match your filters.</p>
+  </main>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
