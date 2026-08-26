@@ -91,6 +91,7 @@ input { font-family: inherit; }
 }
 
 .header-status { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.header-status[hidden] { display: none; }
 
 .btn {
   font-family: var(--font-display);
@@ -326,6 +327,28 @@ input { font-family: inherit; }
 .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
 .legend-dot--target { background: var(--green); }
 .legend-dot--avoid { background: var(--red); }
+
+.board-list-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+.text-action {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 2px;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+.text-action svg { width: 14px; height: 14px; }
+.text-action:hover { color: var(--blue-hover); }
 
 .board-list-head {
   display: grid;
