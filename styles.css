@@ -232,6 +232,21 @@ input { font-family: inherit; }
 .spec-table td:first-child { font-weight: 600; }
 .spec-table td:nth-child(2) { color: var(--text-muted); font-family: var(--font-mono); }
 
+.spec-note {
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.spec-note code {
+  background: var(--surface-raised);
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-family: var(--font-mono);
+  color: var(--text);
+}
+
 /* ============ BOARD SCREEN ============ */
 .board-screen {
   max-width: 980px;

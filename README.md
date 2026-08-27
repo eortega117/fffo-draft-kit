@@ -61,17 +61,20 @@ That's it — no Actions workflow or build step required since there's nothing t
 
 ## Upload format
 
-Columns: Overall Rank, Player, Team, Position, Position Rank, Bye Week, Board Name.
+Per-player columns: Overall Rank, Player, Team, Position, Position Rank, Bye Week.
 
 - **Position** can be given as just the letters (`RB`, `WR`) or combined with the rank
   (`RB1`, `WR10`) — either way the app splits/derives it correctly, and a separate
   Position Rank column is optional. `DST` and `DEF` are automatically normalized to `TD`.
-- Re-uploading a file that was **exported** from the app (which includes extra `Tag`,
-  `Drafted`, and `Board Name` columns) restores your board exactly as you left it,
-  including the board's name/label in the title field.
-- **Board Name** is optional and just a free-text label (e.g. "PPR 12-Man") — type it
-  into the field above the board once loaded, and it'll be saved into every export so it
-  repopulates automatically next time you upload that file.
+- Re-uploading a file that was **exported** from the app (which includes extra `Tag`
+  and `Drafted` columns, plus the board name line described below) restores your board
+  exactly as you left it.
+- **Board Name** is optional and isn't a per-player column — it's a single line at the
+  very top of the file, before the header row: `Board Name,PPR 12-Man`. Type a name into
+  the field above the board once it's loaded, and it's written back into every export
+  as that same leading line, so it repopulates automatically next time you upload that
+  file. (Older exports from before this existed, which had `Board Name` as a repeated
+  column instead, still import fine too.)
 
 ## Extending it later
 

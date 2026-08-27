@@ -53,6 +53,7 @@
 
   function downloadTemplate() {
     downloadCsv('fffo-rankings-template.csv', [
+      ['Board Name', 'PPR 12-Man'],
       ['Overall Rank', 'Player', 'Team', 'Position', 'Position Rank', 'Bye Week'],
       ['1', "Ja'Marr Chase", 'CIN', 'WR', '1', '10'],
       ['2', 'Bijan Robinson', 'ATL', 'RB', '1', '5'],
@@ -66,8 +67,10 @@
 
   function exportBoard() {
     const withRanks = computeDisplayRanks();
-    const rows = [
-      ['Overall Rank', 'Player', 'Team', 'Position', 'Position Rank', 'Bye Week', 'Tag', 'Drafted', 'Board Name'],
+    const rows = [];
+    if (boardName) rows.push(['Board Name', boardName]);
+    rows.push(
+      ['Overall Rank', 'Player', 'Team', 'Position', 'Position Rank', 'Bye Week', 'Tag', 'Drafted'],
       ...withRanks.map(p => [
         p.overallRank,
         p.name,
@@ -77,9 +80,8 @@
         p.bye,
         p.tag === 'target' ? 'Target' : p.tag === 'avoid' ? 'Avoid' : '',
         p.drafted ? 'Yes' : 'No',
-        boardName,
-      ]),
-    ];
+      ])
+    );
     const slug = slugify(boardName);
     const stamp = new Date().toISOString().slice(0, 10);
     const filename = slug ? `fffo-board-${slug}.csv` : `fffo-board-${stamp}.csv`;
@@ -150,9 +152,12 @@
     const name = file.name.toLowerCase();
     if (name.endsWith('.csv')) {
       Papa.parse(file, {
-        header: true,
+        header: false,
         skipEmptyLines: true,
-        complete: (results) => processRows(results.data),
+        complete: (results) => {
+          const { boardName: metaName, rows } = extractBoardNameAndRows(results.data);
+          processRows(rows, metaName);
+        },
         error: (err) => showUploadError('Could not read that CSV: ' + err.message),
       });
     } else if (name.endsWith('.xlsx') || name.endsWith('.xls')) {
@@ -161,8 +166,9 @@
         try {
           const wb = XLSX.read(e.target.result, { type: 'array' });
           const sheet = wb.Sheets[wb.SheetNames[0]];
-          const rows = XLSX.utils.sheet_to_json(sheet, { defval: '' });
-          processRows(rows);
+          const grid = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
+          const { boardName: metaName, rows } = extractBoardNameAndRows(grid);
+          processRows(rows, metaName);
         } catch (err) {
           showUploadError('Could not read that spreadsheet: ' + err.message);
         }
@@ -175,6 +181,33 @@
 
   function normalizeKey(k) {
     return String(k || '').trim().toLowerCase().replace(/[^a-z]/g, '');
+  }
+
+  const BOARD_NAME_LABELS = ['boardname', 'league', 'leaguename', 'description'];
+
+  // Converts a raw grid (array of arrays, as from Papa.parse header:false or
+  // XLSX header:1) into header-mapped row objects. If the very first row looks
+  // like a "Board Name,<value>" metadata line, it's pulled out and returned
+  // separately rather than treated as the header row.
+  function extractBoardNameAndRows(grid) {
+    const dataGrid = (grid || []).filter(r => r.some(c => String(c).trim() !== ''));
+    let boardName = '';
+    let bodyGrid = dataGrid;
+    if (dataGrid.length) {
+      const firstRowFilled = dataGrid[0].filter(c => String(c).trim() !== '');
+      if (firstRowFilled.length <= 2 && BOARD_NAME_LABELS.includes(normalizeKey(dataGrid[0][0]))) {
+        boardName = String(dataGrid[0][1] || '').trim();
+        bodyGrid = dataGrid.slice(1);
+      }
+    }
+    if (!bodyGrid.length) return { boardName, rows: [] };
+    const headers = bodyGrid[0];
+    const rows = bodyGrid.slice(1).map((r) => {
+      const obj = {};
+      headers.forEach((h, i) => { obj[h] = r[i]; });
+      return obj;
+    });
+    return { boardName, rows };
   }
 
   const COLUMN_MAP = {
@@ -219,7 +252,7 @@
     return ['yes', 'true', '1', 'drafted'].includes(v);
   }
 
-  function processRows(rows) {
+  function processRows(rows, metaBoardName) {
     if (!rows || !rows.length) {
       showUploadError('That file looks empty. Double check it has data rows below the header.');
       return;
@@ -246,7 +279,7 @@
     }
 
     const parsed = [];
-    let uploadedBoardName = '';
+    let uploadedBoardName = metaBoardName || '';
     rows.forEach((row, i) => {
       const obj = {};
       Object.keys(row).forEach((h) => {
