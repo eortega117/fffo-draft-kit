@@ -125,51 +125,68 @@ input { font-family: inherit; }
 
 /* ============ UPLOAD SCREEN ============ */
 .upload-screen {
-  max-width: 1140px;
+  max-width: 1240px;
   margin: 0 auto;
-  padding: 40px 24px 28px;
+  min-height: calc(100vh - 91px);
+  display: flex;
+  align-items: center;
+  padding: 32px 24px;
 }
 
 .upload-layout {
   display: grid;
-  grid-template-columns: max-content minmax(360px, 1fr);
-  gap: 56px;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 64px;
   align-items: center;
+  width: 100%;
 }
 
-.upload-hero { text-align: left; }
+.upload-hero { position: relative; text-align: left; }
+.hero-watermark {
+  position: absolute;
+  top: 50%;
+  left: -40px;
+  transform: translateY(-50%);
+  width: 480px;
+  height: 480px;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
 .upload-hero h1 {
+  position: relative;
+  z-index: 1;
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(26px, 3vw, 38px);
-  line-height: 1.08;
-  margin: 0 0 24px;
+  font-size: clamp(38px, 5.2vw, 76px);
+  line-height: 0.98;
+  margin: 0 0 30px;
   letter-spacing: -0.01em;
   text-transform: uppercase;
   color: var(--blue-hover);
-  white-space: nowrap;
 }
 .hero-bullets {
+  position: relative;
+  z-index: 1;
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 .hero-bullets li {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 15px;
+  gap: 14px;
+  font-size: 18px;
   font-weight: 500;
   color: var(--text);
-  white-space: nowrap;
 }
 .bullet-dot {
   flex-shrink: 0;
-  width: 9px;
-  height: 9px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: var(--blue-hover);
 }
@@ -551,12 +568,12 @@ input { font-family: inherit; }
 .pos-K  { --pos-color: var(--pos-k); }
 .pos-TD{ --pos-color: var(--pos-td); }
 
-@media (max-width: 880px) {
-  .upload-layout { grid-template-columns: 1fr; gap: 28px; }
+@media (max-width: 940px) {
+  .upload-screen { min-height: auto; padding: 40px 24px; }
+  .upload-layout { grid-template-columns: 1fr; gap: 32px; }
   .upload-hero { text-align: center; }
-  .upload-hero h1 { white-space: normal; }
   .hero-bullets { align-items: center; }
-  .hero-bullets li { white-space: normal; }
+  .hero-watermark { display: none; }
 }
 
 @media (max-width: 640px) {
