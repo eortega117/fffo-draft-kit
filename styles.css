@@ -96,7 +96,7 @@ input { font-family: inherit; }
 .brand-name {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 15px;
+  font-size: 21px;
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--text);
@@ -125,18 +125,25 @@ input { font-family: inherit; }
 
 /* ============ UPLOAD SCREEN ============ */
 .upload-screen {
-  max-width: 960px;
+  max-width: 1140px;
   margin: 0 auto;
-  padding: 32px 24px 28px;
+  padding: 40px 24px 28px;
 }
 
-.upload-hero { text-align: center; margin-bottom: 22px; }
+.upload-layout {
+  display: grid;
+  grid-template-columns: max-content minmax(360px, 1fr);
+  gap: 56px;
+  align-items: center;
+}
+
+.upload-hero { text-align: left; }
 .upload-hero h1 {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(28px, 4vw, 46px);
-  line-height: 1.05;
-  margin: 0 0 20px;
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: 1.08;
+  margin: 0 0 24px;
   letter-spacing: -0.01em;
   text-transform: uppercase;
   color: var(--blue-hover);
@@ -144,30 +151,27 @@ input { font-family: inherit; }
 }
 .hero-bullets {
   list-style: none;
-  margin: 0 auto;
+  margin: 0;
   padding: 0;
-  max-width: 620px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px 28px;
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 .hero-bullets li {
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  font-weight: 500;
   color: var(--text);
-  line-height: 1.35;
+  white-space: nowrap;
 }
-.bullet-star {
+.bullet-dot {
   flex-shrink: 0;
-  color: var(--blue-hover);
-  font-size: 16px;
-  line-height: 1.35;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--blue-hover);
 }
 .upload-copy {
   color: var(--text-muted);
@@ -547,9 +551,16 @@ input { font-family: inherit; }
 .pos-K  { --pos-color: var(--pos-k); }
 .pos-TD{ --pos-color: var(--pos-td); }
 
+@media (max-width: 880px) {
+  .upload-layout { grid-template-columns: 1fr; gap: 28px; }
+  .upload-hero { text-align: center; }
+  .upload-hero h1 { white-space: normal; }
+  .hero-bullets { align-items: center; }
+  .hero-bullets li { white-space: normal; }
+}
+
 @media (max-width: 640px) {
-  .upload-hero h1 { font-size: 30px; white-space: normal; }
-  .hero-bullets { grid-template-columns: 1fr; }
+  .upload-hero h1 { font-size: 30px; }
   .board-list-head { display: none; }
   .player-row { --row-grid: 36px 1fr 66px; }
   .team-cell, .bye-cell { display: none; }
