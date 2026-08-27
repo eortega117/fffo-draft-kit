@@ -6,6 +6,7 @@
 
   /** @type {Array<Object>} the single source of truth — current overall order */
   let players = [];
+  let boardName = '';
 
   let filters = { search: '', selectedPositions: new Set(), showDrafted: false };
   const FLEX_POSITIONS = ['RB', 'WR', 'TE'];
@@ -22,6 +23,7 @@
     fileInput: document.getElementById('file-input'),
     uploadError: document.getElementById('upload-error'),
     downloadTemplateBtn: document.getElementById('download-template-btn'),
+    boardNameInput: document.getElementById('board-name-input'),
     searchInput: document.getElementById('search-input'),
     posFilters: document.getElementById('pos-filters'),
     showDraftedToggle: document.getElementById('show-drafted-toggle'),
@@ -58,10 +60,14 @@
     ]);
   }
 
+  function slugify(str) {
+    return String(str).trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  }
+
   function exportBoard() {
     const withRanks = computeDisplayRanks();
     const rows = [
-      ['Overall Rank', 'Player', 'Team', 'Position', 'Position Rank', 'Bye Week', 'Tag', 'Drafted'],
+      ['Overall Rank', 'Player', 'Team', 'Position', 'Position Rank', 'Bye Week', 'Tag', 'Drafted', 'Board Name'],
       ...withRanks.map(p => [
         p.overallRank,
         p.name,
@@ -71,10 +77,13 @@
         p.bye,
         p.tag === 'target' ? 'Target' : p.tag === 'avoid' ? 'Avoid' : '',
         p.drafted ? 'Yes' : 'No',
+        boardName,
       ]),
     ];
+    const slug = slugify(boardName);
     const stamp = new Date().toISOString().slice(0, 10);
-    downloadCsv(`fffo-board-${stamp}.csv`, rows);
+    const filename = slug ? `fffo-board-${slug}.csv` : `fffo-board-${stamp}.csv`;
+    downloadCsv(filename, rows);
   }
 
   function csvEscape(val) {
@@ -110,6 +119,7 @@
     el.startOverBtn.addEventListener('click', () => {
       if (!confirm('Start over with a new upload? This clears your current board — export it first if you want to keep it.')) return;
       players = [];
+      boardName = '';
       el.fileInput.value = '';
       showUpload();
     });
@@ -180,6 +190,10 @@
     bye: 'bye',
     tag: 'tagRaw',
     drafted: 'draftedRaw',
+    boardname: 'boardNameRaw',
+    league: 'boardNameRaw',
+    leaguename: 'boardNameRaw',
+    description: 'boardNameRaw',
   };
 
   // Splits a combined position value like "RB1" or "WR10" into { position: 'RB', rank: 1 }.
@@ -232,11 +246,15 @@
     }
 
     const parsed = [];
+    let uploadedBoardName = '';
     rows.forEach((row, i) => {
       const obj = {};
       Object.keys(row).forEach((h) => {
         if (keyMap[h]) obj[keyMap[h]] = row[h];
       });
+      if (!uploadedBoardName && obj.boardNameRaw) {
+        uploadedBoardName = String(obj.boardNameRaw).trim();
+      }
       const name = String(obj.name || '').trim();
       const { position } = splitPosition(obj.position);
       if (!name || !position) return;
@@ -261,6 +279,8 @@
     parsed.sort((a, b) => a.overallRankUploaded - b.overallRankUploaded);
 
     players = parsed;
+    boardName = uploadedBoardName;
+    el.boardNameInput.value = boardName;
     filters = { search: '', selectedPositions: new Set(), showDrafted: false };
     el.searchInput.value = '';
     el.showDraftedToggle.checked = false;
@@ -452,6 +472,10 @@
   }
 
   function bindBoardEvents() {
+    el.boardNameInput.addEventListener('input', () => {
+      boardName = el.boardNameInput.value;
+    });
+
     el.searchInput.addEventListener('input', () => {
       filters.search = el.searchInput.value;
       render();

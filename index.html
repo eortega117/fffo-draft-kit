@@ -60,6 +60,7 @@
             <tr><td>Position</td><td>WR or WR1</td><td>QB, RB, WR, TE, K, or TD (defense) — the rank can be attached directly (e.g. "WR1") or left as just the letters</td></tr>
             <tr><td>Position Rank</td><td>1</td><td>Optional — calculated automatically if left out or already combined into Position</td></tr>
             <tr><td>Bye Week</td><td>10</td><td>Numeric</td></tr>
+            <tr><td>Board Name</td><td>PPR 12-Man</td><td>Optional — a label for this board (e.g. league name/format). Repopulates automatically if you re-upload a file that already has it, like one you exported.</td></tr>
           </tbody>
         </table>
       </details>
@@ -69,6 +70,10 @@
 
   <!-- ============ BOARD SCREEN ============ -->
   <main id="board-screen" class="board-screen" hidden>
+
+    <div class="board-name-row">
+      <input type="text" id="board-name-input" class="board-name-input" placeholder="Name this board — e.g. PPR 12-Man" autocomplete="off">
+    </div>
 
     <div class="board-controls">
       <div class="search-wrap">

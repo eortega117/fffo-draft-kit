@@ -239,6 +239,26 @@ input { font-family: inherit; }
   padding: 28px 24px 100px;
 }
 
+.board-name-row {
+  margin-bottom: 14px;
+}
+.board-name-input {
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 6px 2px 10px;
+  color: var(--text);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: border-color 0.15s;
+}
+.board-name-input::placeholder { color: var(--text-faint); font-weight: 600; }
+.board-name-input:focus { outline: none; border-color: var(--blue); }
+
 .board-controls {
   display: flex;
   align-items: center;
