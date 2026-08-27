@@ -132,6 +132,7 @@ input { font-family: inherit; }
   align-items: center;
   padding: 32px 24px;
 }
+.upload-screen[hidden] { display: none; }
 
 .upload-layout {
   display: grid;
