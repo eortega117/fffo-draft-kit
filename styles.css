@@ -73,9 +73,9 @@ input { font-family: inherit; }
 .brand-logo {
   display: flex;
   flex-direction: column;
-  width: 34px;
+  width: 52px;
   border: 1px solid var(--border-light);
-  border-radius: 3px;
+  border-radius: 4px;
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -85,11 +85,11 @@ input { font-family: inherit; }
   justify-content: center;
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: 11px;
+  font-size: 17px;
   letter-spacing: 0.02em;
   color: #fff;
   line-height: 1;
-  padding: 4px 0;
+  padding: 6px 0;
 }
 .brand-logo-top { background: var(--blue); }
 .brand-logo-bottom { background: #111318; }
@@ -125,75 +125,68 @@ input { font-family: inherit; }
 
 /* ============ UPLOAD SCREEN ============ */
 .upload-screen {
-  max-width: 720px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 72px 24px 80px;
+  padding: 32px 24px 28px;
 }
 
-.upload-hero { text-align: center; margin-bottom: 40px; }
-.eyebrow {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--blue-hover);
-  margin: 0 0 12px;
-}
+.upload-hero { text-align: center; margin-bottom: 22px; }
 .upload-hero h1 {
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: 52px;
+  font-size: clamp(28px, 4vw, 46px);
   line-height: 1.05;
-  margin: 0 0 16px;
+  margin: 0 0 20px;
   letter-spacing: -0.01em;
   text-transform: uppercase;
+  color: var(--blue-hover);
+  white-space: nowrap;
 }
 .hero-bullets {
   list-style: none;
-  margin: 28px auto 24px;
+  margin: 0 auto;
   padding: 0;
-  max-width: 560px;
+  max-width: 620px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px 28px;
+  gap: 12px 28px;
   text-align: left;
 }
 .hero-bullets li {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text);
-  line-height: 1.4;
-}
-.hero-bullets svg {
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
-  color: var(--blue-hover);
-  margin-top: 1px;
-}
-.hero-copy {
-  color: var(--text-muted);
   font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text);
+  line-height: 1.35;
+}
+.bullet-star {
+  flex-shrink: 0;
+  color: var(--blue-hover);
+  font-size: 16px;
+  line-height: 1.35;
+}
+.upload-copy {
+  color: var(--text-muted);
+  font-size: 13px;
   line-height: 1.6;
-  max-width: 480px;
-  margin: 0 auto;
+  margin: 0 0 18px;
 }
 
 .upload-panel {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 28px;
+  padding: 22px 24px;
 }
 
 .dropzone {
   border: 1.5px dashed var(--border-light);
   border-radius: var(--radius);
-  padding: 48px 24px;
+  padding: 30px 24px;
   text-align: center;
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s;
@@ -367,6 +360,8 @@ input { font-family: inherit; }
   align-items: center;
   justify-content: center;
   padding: 8px 10px;
+  font-size: 15px;
+  line-height: 1;
 }
 .pos-pill--icon svg { width: 15px; height: 15px; display: block; }
 .pos-pill--icon.is-target-active {
@@ -553,7 +548,7 @@ input { font-family: inherit; }
 .pos-TD{ --pos-color: var(--pos-td); }
 
 @media (max-width: 640px) {
-  .upload-hero h1 { font-size: 40px; }
+  .upload-hero h1 { font-size: 30px; white-space: normal; }
   .hero-bullets { grid-template-columns: 1fr; }
   .board-list-head { display: none; }
   .player-row { --row-grid: 36px 1fr 66px; }

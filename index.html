@@ -30,30 +30,30 @@
   <!-- ============ UPLOAD SCREEN ============ -->
   <main id="upload-screen" class="upload-screen">
     <div class="upload-hero">
-      <p class="eyebrow">Before you go on the clock</p>
       <h1>Dominate your draft</h1>
       <ul class="hero-bullets">
         <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="bullet-star">★</span>
           <span>Customize your own rankings</span>
         </li>
         <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="bullet-star">★</span>
           <span>Tag the players you're targeting — or want to avoid</span>
         </li>
         <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="bullet-star">★</span>
           <span>Live draft board — see who's taken and who's still available</span>
         </li>
         <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12l5 5L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span class="bullet-star">★</span>
           <span>No more outdated, hard-to-follow spreadsheets on draft day</span>
         </li>
       </ul>
-      <p class="hero-copy">Upload your own rankings and run your draft from a live, editable board — tag targets, bump players up or down, and mark them drafted as they come off the board. When you're done, export your board as a spreadsheet so you can pick up right where you left off next time.</p>
     </div>
 
     <div class="upload-panel">
+      <p class="upload-copy">Upload your own rankings and run your draft from a live, editable board — tag targets, bump players up or down, and mark them drafted as they come off the board. When you're done, export your board as a spreadsheet so you can pick up right where you left off next time.</p>
+
       <div id="dropzone" class="dropzone">
         <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M12 3v12m0-12 4 4m-4-4-4 4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -113,13 +113,7 @@
         <button class="pos-pill" data-pos="TE">TE</button>
         <button class="pos-pill" data-pos="K">K</button>
         <button class="pos-pill" data-pos="TD">TD</button>
-        <button class="pos-pill pos-pill--icon" id="target-filter-btn" title="Show only Targets" aria-pressed="false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="9"/>
-            <circle cx="12" cy="12" r="5.5"/>
-            <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>
-          </svg>
-        </button>
+        <button class="pos-pill pos-pill--icon" id="target-filter-btn" title="Show only Targets" aria-pressed="false">★</button>
       </div>
     </div>
 
