@@ -70,22 +70,34 @@ input { font-family: inherit; }
 }
 
 .brand { display: flex; align-items: center; gap: 12px; }
-.brand-mark {
+.brand-logo {
+  display: flex;
+  flex-direction: column;
+  width: 34px;
+  border: 1px solid var(--border-light);
+  border-radius: 3px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.brand-logo-top, .brand-logo-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: 15px;
+  font-size: 11px;
   letter-spacing: 0.02em;
   color: #fff;
-  background: var(--blue);
-  padding: 8px 10px;
-  border-radius: 4px;
   line-height: 1;
+  padding: 4px 0;
 }
-.brand-sub {
+.brand-logo-top { background: var(--blue); }
+.brand-logo-bottom { background: #111318; }
+.brand-name {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 15px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--text);
 }
@@ -136,6 +148,32 @@ input { font-family: inherit; }
   margin: 0 0 16px;
   letter-spacing: -0.01em;
   text-transform: uppercase;
+}
+.hero-bullets {
+  list-style: none;
+  margin: 28px auto 24px;
+  padding: 0;
+  max-width: 560px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 28px;
+  text-align: left;
+}
+.hero-bullets li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.4;
+}
+.hero-bullets svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: var(--blue-hover);
+  margin-top: 1px;
 }
 .hero-copy {
   color: var(--text-muted);
@@ -324,6 +362,18 @@ input { font-family: inherit; }
   border-color: var(--blue);
   color: #FFFFFF;
 }
+.pos-pill--icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px;
+}
+.pos-pill--icon svg { width: 15px; height: 15px; display: block; }
+.pos-pill--icon.is-target-active {
+  background: var(--green-dim);
+  border-color: var(--green);
+  color: var(--green);
+}
 
 .drafted-toggle { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 .switch { display: inline-block; }
@@ -365,7 +415,8 @@ input { font-family: inherit; }
 
 .board-list-toolbar {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 8px;
 }
 .text-action {
@@ -503,6 +554,7 @@ input { font-family: inherit; }
 
 @media (max-width: 640px) {
   .upload-hero h1 { font-size: 40px; }
+  .hero-bullets { grid-template-columns: 1fr; }
   .board-list-head { display: none; }
   .player-row { --row-grid: 36px 1fr 66px; }
   .team-cell, .bye-cell { display: none; }

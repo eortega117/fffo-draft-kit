@@ -8,7 +8,7 @@
   let players = [];
   let boardName = '';
 
-  let filters = { search: '', selectedPositions: new Set(), showDrafted: false };
+  let filters = { search: '', selectedPositions: new Set(), showDrafted: false, targetOnly: false };
   const FLEX_POSITIONS = ['RB', 'WR', 'TE'];
 
   // ---------- DOM refs ----------
@@ -27,6 +27,7 @@
     searchInput: document.getElementById('search-input'),
     posFilters: document.getElementById('pos-filters'),
     showDraftedToggle: document.getElementById('show-drafted-toggle'),
+    targetFilterBtn: document.getElementById('target-filter-btn'),
     playerList: document.getElementById('player-list'),
     emptyState: document.getElementById('empty-state'),
   };
@@ -314,9 +315,11 @@
     players = parsed;
     boardName = uploadedBoardName;
     el.boardNameInput.value = boardName;
-    filters = { search: '', selectedPositions: new Set(), showDrafted: false };
+    filters = { search: '', selectedPositions: new Set(), showDrafted: false, targetOnly: false };
     el.searchInput.value = '';
     el.showDraftedToggle.checked = false;
+    el.targetFilterBtn.classList.remove('is-target-active');
+    el.targetFilterBtn.setAttribute('aria-pressed', 'false');
     updatePosFilterUI();
     showBoard();
   }
@@ -395,6 +398,7 @@
     return withRanks.filter((p) => {
       if (!filters.showDrafted && p.drafted) return false;
       if (filters.selectedPositions.size > 0 && !filters.selectedPositions.has(p.position)) return false;
+      if (filters.targetOnly && p.tag !== 'target') return false;
       if (filters.search) {
         const q = filters.search.toLowerCase();
         if (!p.name.toLowerCase().includes(q)) return false;
@@ -491,6 +495,7 @@
   // ---------- Board controls ----------
   function updatePosFilterUI() {
     el.posFilters.querySelectorAll('.pos-pill').forEach((btn) => {
+      if (btn === el.targetFilterBtn) return;
       const pos = btn.getAttribute('data-pos');
       let active;
       if (pos === 'ALL') {
@@ -516,7 +521,7 @@
 
     el.posFilters.addEventListener('click', (e) => {
       const btn = e.target.closest('.pos-pill');
-      if (!btn) return;
+      if (!btn || btn === el.targetFilterBtn) return;
       const pos = btn.getAttribute('data-pos');
 
       if (pos === 'ALL') {
@@ -537,6 +542,13 @@
       }
 
       updatePosFilterUI();
+      render();
+    });
+
+    el.targetFilterBtn.addEventListener('click', () => {
+      filters.targetOnly = !filters.targetOnly;
+      el.targetFilterBtn.classList.toggle('is-target-active', filters.targetOnly);
+      el.targetFilterBtn.setAttribute('aria-pressed', String(filters.targetOnly));
       render();
     });
 
