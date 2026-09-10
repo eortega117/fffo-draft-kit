@@ -69,7 +69,7 @@ input { font-family: inherit; }
   z-index: 20;
 }
 
-.brand { display: flex; align-items: center; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
 .brand-logo {
   display: flex;
   flex-direction: column;
@@ -102,8 +102,24 @@ input { font-family: inherit; }
   color: var(--text);
 }
 
+.header-right { display: flex; align-items: center; gap: 20px; }
 .header-status { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .header-status[hidden] { display: none; }
+
+.header-back {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s;
+}
+.header-back:hover { color: var(--text); }
+.header-back svg { width: 16px; height: 16px; }
 
 .btn {
   font-family: var(--font-display);
