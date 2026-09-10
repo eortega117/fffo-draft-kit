@@ -69,7 +69,9 @@ input { font-family: inherit; }
   z-index: 20;
 }
 
-.brand { display: flex; align-items: center; gap: 12px; }
+.brand,
+.brand:link,
+.brand:visited { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; }
 .brand-logo {
   display: flex;
   flex-direction: column;
@@ -102,8 +104,25 @@ input { font-family: inherit; }
   color: var(--text);
 }
 
+.header-right { display: flex; align-items: center; gap: 20px; }
 .header-status { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .header-status[hidden] { display: none; }
+
+.header-back {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+.header-back:hover { color: var(--text); background: var(--surface-raised); border-color: var(--text-faint); }
+.header-back svg { width: 18px; height: 18px; display: block; }
 
 .btn {
   font-family: var(--font-display);
