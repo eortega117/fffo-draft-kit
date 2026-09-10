@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Power Rankings — Fantasy Football Front Office</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="../index.html">
+    <div class="brand-logo">
+      <span class="brand-logo-top">FF</span>
+      <span class="brand-logo-bottom">FO</span>
+    </div>
+    <span class="brand-name">Fantasy Football Front Office</span>
+  </a>
+  <a class="header-back" href="../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    All tools
+  </a>
+</header>
+
+<main class="pr-screen">
+  <div class="pr-panel">
+    <span class="pr-eyebrow">Power Rankings</span>
+    <h1>Enter your Sleeper league</h1>
+    <p class="pr-copy">Paste your league ID and we'll pull your rosters, records, and season stats straight from Sleeper — no login required. From there you'll be able to tune how much weight goes to positions, recent form, and outside rankings.</p>
+
+    <form class="pr-form" id="league-form">
+      <label for="league-id-input" class="pr-label">Sleeper League ID</label>
+      <input type="text" id="league-id-input" class="pr-input" placeholder="e.g. 918204103046656000" autocomplete="off" disabled>
+      <button type="submit" class="btn btn--primary pr-submit" disabled>Get Power Rankings</button>
+    </form>
+
+    <p class="pr-status">
+      <span class="pr-status-dot"></span>
+      Building this next — the league lookup isn't wired up yet.
+    </p>
+
+    <details class="pr-help">
+      <summary>Where do I find my league ID?</summary>
+      <p>Open your league in the Sleeper app or on sleeper.com, then look at the URL — it's the long number after <code>/leagues/</code>. You can also find it under League Settings.</p>
+    </details>
+  </div>
+</main>
+
+</body>
+</html>
